@@ -7,6 +7,12 @@ authors = ["Jeff Nyman <jeffnyman@gmail.com>"]
 [tool.poetry.scripts]
 chippy8 = "chippy8.__main__:main"
 
+[tool.pytest.ini_options]
+spec_test_format = "{result} {docstring_summary}"
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
 [tool.coverage.run]
 branch = true
 source = ["chippy8"]

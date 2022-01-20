@@ -82,6 +82,15 @@ def lintingreport(session: Session) -> None:
 
 
 @session
+def safety(session: Session) -> None:
+    """Run security checks (using safety)."""
+
+    requirements = session.poetry.export_requirements()
+    session.install("safety")
+    session.run("safety", "check", "--full-report", f"--file={requirements}")
+
+
+@session
 def cleanup(session: Session) -> None:
     """Clean up generated files and directories."""
 

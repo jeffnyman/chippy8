@@ -7,11 +7,29 @@ authors = ["Jeff Nyman <jeffnyman@gmail.com>"]
 [tool.poetry.scripts]
 chippy8 = "chippy8.__main__:main"
 
+[tool.coverage.run]
+branch = true
+source = ["chippy8"]
+dynamic_context = "test_function"
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = ["if __name__ == .__main__.:"]
+
+[tool.coverage.html]
+show_contexts = true
+title = "ChipPy8 Test Coverage"
+
 [tool.poetry.dependencies]
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
+pytest = "^6.2.5"
+pytest-spec = "^3.2.0"
+pytest-cov = "^3.0.0"
+coverage = {version = "^6.2", extras = ["toml"]}
+expects = "^0.9.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

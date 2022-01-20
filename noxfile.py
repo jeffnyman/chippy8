@@ -4,6 +4,8 @@ from nox_poetry import session
 nox.options.stop_on_first_error = True
 nox.options.error_on_external_run = True
 
+locations = "src", "tests", "noxfile.py"
+
 
 @session
 def testing(session) -> None:
@@ -17,3 +19,10 @@ def testing(session) -> None:
     ]
     session.install("pytest", "pytest-cov", "pytest-spec", "expects", ".")
     session.run("pytest", *args)
+
+
+@session
+def typechecking(session) -> None:
+    args = session.posargs or locations
+    session.install("mypy", "types-colorama")
+    session.run("mypy", "--install-types", "--non-interactive", *args)

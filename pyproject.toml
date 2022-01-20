@@ -26,6 +26,12 @@ exclude_lines = ["if __name__ == .__main__.:"]
 show_contexts = true
 title = "ChipPy8 Test Coverage"
 
+[tool.mypy]
+
+[[tool.mypy.overrides]]
+module = "nox.*,nox_poetry.*,expects.*"
+ignore_missing_imports = true
+
 [tool.poetry.dependencies]
 python = "^3.7"
 
@@ -36,6 +42,7 @@ pytest-spec = "^3.2.0"
 pytest-cov = "^3.0.0"
 coverage = {version = "^6.2", extras = ["toml"]}
 expects = "^0.9.0"
+mypy = "^0.931"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

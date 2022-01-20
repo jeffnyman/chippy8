@@ -1,0 +1,13 @@
+[flake8]
+
+statistics = True
+show-source = True
+
+htmldir = htmllint
+htmltitle = Quendor Lint Report
+
+max-line-length = 90
+inline-quotes = double
+no-accept-encodings = True
+strictness = short
+docstring-convention = google

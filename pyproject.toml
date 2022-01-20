@@ -29,7 +29,7 @@ title = "ChipPy8 Test Coverage"
 [tool.mypy]
 
 [[tool.mypy.overrides]]
-module = "nox.*,nox_poetry.*,expects.*"
+module = "nox.*,nox_poetry.*,expects.*,pytest.*"
 ignore_missing_imports = true
 
 [tool.poetry.dependencies]

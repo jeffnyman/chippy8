@@ -1,5 +1,7 @@
+"""Provide executable sessions for project automation."""
+
 import nox
-from nox_poetry import session
+from nox_poetry import Session, session
 
 nox.options.stop_on_first_error = True
 nox.options.error_on_external_run = True
@@ -8,7 +10,9 @@ locations = "src", "tests", "noxfile.py"
 
 
 @session
-def testing(session) -> None:
+def testing(session: Session) -> None:
+    """Run the test suite (using pytest)."""
+
     args = session.posargs or [
         "--cov",
         "--spec",
@@ -22,14 +26,18 @@ def testing(session) -> None:
 
 
 @session
-def typechecking(session) -> None:
+def typechecking(session: Session) -> None:
+    """Run type checks (using mypy)."""
+
     args = session.posargs or locations
     session.install("mypy", "types-colorama")
     session.run("mypy", "--install-types", "--non-interactive", *args)
 
 
 @session
-def linting(session) -> None:
+def linting(session: Session) -> None:
+    """Run linting checks (using flake8)."""
+
     args = session.posargs or locations
     session.install(*flake8_plugins)
     session.run(
@@ -44,7 +52,9 @@ def linting(session) -> None:
 
 
 @session
-def lintingreport(session) -> None:
+def lintingreport(session: Session) -> None:
+    """Run linting checks with HTML report (using flake8)."""
+
     args = session.posargs or locations
     session.install(
         *flake8_plugins,

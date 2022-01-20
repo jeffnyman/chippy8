@@ -11,3 +11,14 @@ inline-quotes = double
 no-accept-encodings = True
 strictness = short
 docstring-convention = google
+
+per-file-ignores =
+    # Missing docstring in public package
+    */__init__.py:D104
+
+    # Missing docstring in public module
+    */__version__.py:D100
+
+ignore =
+    # No blank lines allowed after function docstring.
+    D202

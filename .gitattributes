@@ -1,0 +1,30 @@
+# Auto-detect text files and perform LF normalization
+* text=auto
+
+# Files that require specific line endings
+*.sh  text eol=lf
+*.bat text eol=crlf
+
+# Make sure images are binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+
+# Make sure certain files are not archived
+.gitignore      export-ignore
+.gitattributes  export-ignore
+
+# Diff source files
+*.pxd    text diff=python
+*.py     text diff=python
+*.py3    text diff=python
+*.pyw    text diff=python
+*.pyx    text diff=python
+*.pyz    text diff=python
+*.pyi    text diff=python
+
+# Python binary files
+*.pyc    binary export-ignore
+*.pyo    binary export-ignore
+*.pyd    binary

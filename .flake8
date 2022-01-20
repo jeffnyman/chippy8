@@ -22,3 +22,6 @@ per-file-ignores =
 ignore =
     # No blank lines allowed after function docstring.
     D202
+
+    # Line break before binary operator.
+    W503

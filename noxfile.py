@@ -5,6 +5,7 @@ from nox_poetry import Session, session
 
 nox.options.stop_on_first_error = True
 nox.options.error_on_external_run = True
+nox.options.sessions = "formatting", "typechecking", "linting", "testing"
 
 locations = "src", "tests", "noxfile.py"
 
@@ -23,6 +24,15 @@ def testing(session: Session) -> None:
     ]
     session.install("pytest", "pytest-cov", "pytest-spec", "expects", ".")
     session.run("pytest", *args)
+
+
+@session
+def formatting(session: Session) -> None:
+    """Run formatter (using black)."""
+
+    args = session.posargs or locations
+    session.install("black")
+    session.run("black", *args)
 
 
 @session
@@ -69,6 +79,68 @@ def lintingreport(session: Session) -> None:
         "src/chippy8/",
     )
     session.run("flake8", "--format=html", *args)
+
+
+@session
+def cleanup(session: Session) -> None:
+    """Clean up generated files and directories."""
+
+    session.run(
+        "python",
+        "-c",
+        "import os; os.remove('.coverage') if os.path.exists('.coverage') else None",
+    )
+
+    session.run(
+        "python",
+        "-c",
+        "import shutil; shutil.rmtree('./htmlcov', ignore_errors=True)",
+    )
+
+    session.run(
+        "python",
+        "-c",
+        "import shutil; shutil.rmtree('./htmllint', ignore_errors=True)",
+    )
+
+    session.run(
+        "python",
+        "-c",
+        "import shutil; shutil.rmtree('./.mypy_cache', ignore_errors=True)",
+    )
+
+    session.run(
+        "python",
+        "-c",
+        "import shutil; shutil.rmtree('./.pytest_cache', ignore_errors=True)",
+    )
+
+    session.run(
+        "python",
+        "-c",
+        "import pathlib; "
+        + "[p.unlink() for p in pathlib.Path('.').rglob('*.py[co]') "
+        + "if not str(p).startswith('.nox')]",
+    )
+
+    session.run(
+        "python",
+        "-c",
+        "import pathlib; "
+        + "[p.rmdir() for p in pathlib.Path('.').rglob('__pycache__') "
+        + "if not str(p).startswith('.nox')]",
+    )
+
+
+@session
+def clean_nox_vm(session: Session) -> None:
+    """Clean up generated Nox virtual environments."""
+
+    session.run(
+        "python",
+        "-c",
+        "import shutil; shutil.rmtree('./.nox', ignore_errors=True)",
+    )
 
 
 flake8_plugins = (

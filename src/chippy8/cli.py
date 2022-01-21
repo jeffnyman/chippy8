@@ -6,6 +6,8 @@ import textwrap
 
 from chippy8 import __version__
 
+import logzero
+
 
 def process_options(args: list) -> dict:
     """
@@ -42,10 +44,28 @@ def process_options(args: list) -> dict:
         help="version information",
     )
 
+    parser.add_argument(
+        "-d",
+        "--debug",
+        action="store_const",
+        dest="loglevel",
+        const=logzero.DEBUG,
+        help="print debug logging",
+    )
+
+    parser.add_argument(
+        "-i",
+        "--info",
+        action="store_const",
+        dest="loglevel",
+        const=logzero.INFO,
+        help="print informative logging",
+    )
+
     if "-v" in args or "--version" in args:
         print(f"Version: {__version__}\n")
         sys.exit(0)
 
-    options = parser.parse_args()
+    options = parser.parse_args(args)
 
     return vars(options)

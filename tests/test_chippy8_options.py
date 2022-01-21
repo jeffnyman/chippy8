@@ -1,5 +1,8 @@
 """Tests for the ChipPy-8 CLI option handling."""
 
+import sys
+from unittest import mock
+
 from expects import contain, equal, expect
 
 import pytest
@@ -21,3 +24,21 @@ def test_chippy8_cli_version(capsys: pytest.CaptureFixture) -> None:
     result = captured.out
 
     expect(result).to(contain(f"Version: {chippy8.__version__}"))
+
+
+def test_debug_logging(capsys: pytest.CaptureFixture) -> None:
+    """ChipPy-8 can display debug log information."""
+
+    from chippy8.__main__ import main
+
+    with mock.patch.object(
+        sys,
+        "argv",
+        [""],
+    ):
+        main(["-d"])
+
+    captured = capsys.readouterr()
+    result = captured.err
+
+    expect(result).to(contain("Parsed arguments:"))

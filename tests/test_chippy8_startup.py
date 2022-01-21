@@ -13,7 +13,12 @@ def test_chippy8_startup_banner(capsys: pytest.CaptureFixture) -> None:
 
     from chippy8.__main__ import main
 
-    main()
+    with mock.patch.object(
+        sys,
+        "argv",
+        [""],
+    ):
+        main()
 
     captured = capsys.readouterr()
     result = captured.out

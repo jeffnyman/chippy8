@@ -127,6 +127,12 @@ def cleanup(session: Session) -> None:
     session.run(
         "python",
         "-c",
+        "import shutil; shutil.rmtree('./dist', ignore_errors=True)",
+    )
+
+    session.run(
+        "python",
+        "-c",
         "import pathlib; "
         + "[p.unlink() for p in pathlib.Path('.').rglob('*.py[co]') "
         + "if not str(p).startswith('.nox')]",

@@ -3,6 +3,7 @@
 import sys
 
 from chippy8.cli import process_options
+from chippy8.interpreter import Interpreter
 from chippy8.logging import setup_logging
 
 from logzero import logger
@@ -34,4 +35,20 @@ def main(args: list = None) -> int:
 
     logger.debug(f"Parsed arguments: {'':>2}" + f"{cli}")
 
+    setup_chippy8(cli)
+
     return 0
+
+
+def setup_chippy8(cli: dict) -> None:
+    """
+    Establish the interpreter that ChipPy-8 will operate on.
+
+    The goal of this function will be to make sure that ChipPy-8 is set up
+    with a viable ROM program that can be executed.
+
+    Args:
+        cli: the parsed command line arguments
+    """
+
+    Interpreter(cli["rom_file"])

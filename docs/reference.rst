@@ -16,3 +16,9 @@ chippy8.cli
 
 .. automodule:: chippy8.cli
     :members:
+
+quendor.interpreter
+-------------------
+
+.. automodule:: quendor.interpreter
+    :members:

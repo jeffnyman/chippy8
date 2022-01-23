@@ -20,7 +20,12 @@ class Interpreter:
         self._locate_rom()
 
     def _locate_rom(self) -> None:
-        """Determine if a ROM program exists."""
+        """
+        Determine if a ROM program exists.
+
+        Raises:
+            UnableToLocateRomProgramError: if ROM program cannot be found
+        """
 
         paths = [os.curdir]
         paths.append(str(Path(os.path.expandvars("$CHIP8_ROM_PATH"))))

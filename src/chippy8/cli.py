@@ -38,6 +38,13 @@ def process_options(args: list) -> dict:
     )
 
     parser.add_argument(
+        "rom_file",
+        action="store",
+        type=str,
+        help="ROM program to load",
+    )
+
+    parser.add_argument(
         "-v",
         "--version",
         action="store_true",

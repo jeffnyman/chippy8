@@ -15,7 +15,7 @@ Usage
 
 .. code-block:: console
 
-    $ chippy8 [OPTIONS]
+    $ chippy8 [OPTIONS] rom_file
 
 .. option:: -d
 

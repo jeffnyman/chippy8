@@ -1,5 +1,6 @@
 """Tests for the ChipPy-8 CLI option handling."""
 
+import os
 import sys
 from unittest import mock
 
@@ -31,12 +32,14 @@ def test_debug_logging(capsys: pytest.CaptureFixture) -> None:
 
     from chippy8.__main__ import main
 
+    file_path = os.path.join(os.path.dirname(__file__), "./fixtures", "BC_test.ch8")
+
     with mock.patch.object(
         sys,
         "argv",
         [""],
     ):
-        main(["-d"])
+        main([file_path, "-d"])
 
     captured = capsys.readouterr()
     result = captured.err

@@ -38,5 +38,9 @@ class Chippy8Error(Exception):
         sys.exit(self)
 
 
+class UnableToAccessRomProgramError(Chippy8Error):
+    """Raise for a ROM program file that cannot be opened or read from."""
+
+
 class UnableToLocateRomProgramError(Chippy8Error):
     """Raise for a ROM program file that cannot be located."""

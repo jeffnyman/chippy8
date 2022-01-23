@@ -36,10 +36,12 @@ source = ["src", "*/site-packages"]
 branch = true
 source = ["chippy8"]
 dynamic_context = "test_function"
+omit = ["src/chippy8/messages.py"]
 
 [tool.coverage.report]
 show_missing = true
 exclude_lines = ["if __name__ == .__main__.:"]
+omit = ["src/chippy8/messages.py"]
 
 [tool.coverage.html]
 show_contexts = true
@@ -54,6 +56,8 @@ ignore_missing_imports = true
 [tool.poetry.dependencies]
 python = "^3.7"
 logzero = "^1.7.0"
+colorama = "^0.4.4"
+termcolor = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"

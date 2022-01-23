@@ -3,6 +3,10 @@
 import os
 from pathlib import Path
 
+from chippy8.errors import UnableToLocateRomProgramError
+from chippy8.messages import cyan_bold, yellow_bold
+
+
 from logzero import logger
 
 
@@ -31,6 +35,7 @@ class Interpreter:
 
                 return
 
-        print(
-            f"Unable to find the ROM file: {self._rom}" f"\nChecked in: {paths}",
+        raise UnableToLocateRomProgramError(
+            f"\nUnable to find the ROM program: {yellow_bold(self._rom)}"
+            f"\nChecked in: {cyan_bold(paths)}",
         )

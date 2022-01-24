@@ -4,8 +4,8 @@ import os
 from pathlib import Path
 
 from chippy8.errors import UnableToAccessRomProgramError, UnableToLocateRomProgramError
+from chippy8.fonts import font_set
 from chippy8.messages import cyan_bold, yellow_bold
-
 
 from logzero import logger
 
@@ -14,6 +14,7 @@ class Interpreter:
     """Abstraction for a CHIP-8 interpreter."""
 
     MEMORY_START_ADDRESS = 0x200
+    FONT_SET_START_ADDRESS = 0x50
 
     def __init__(self, rom: str) -> None:
         self._rom: str = rom
@@ -27,6 +28,7 @@ class Interpreter:
         self._locate_rom()
         self._read_memory()
         self._populate_memory()
+        self._populate_fonts()
 
     def _locate_rom(self) -> None:
         """
@@ -82,3 +84,11 @@ class Interpreter:
             Interpreter.MEMORY_START_ADDRESS : Interpreter.MEMORY_START_ADDRESS
             + len(operations)
         ] = operations
+
+    def _populate_fonts(self) -> None:
+        """Populate memory array with font set data."""
+
+        self.memory[
+            Interpreter.FONT_SET_START_ADDRESS : Interpreter.FONT_SET_START_ADDRESS
+            + len(font_set)
+        ] = font_set

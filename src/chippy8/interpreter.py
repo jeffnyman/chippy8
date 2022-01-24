@@ -42,7 +42,12 @@ class Interpreter:
         self._populate_fonts()
 
         self.display = [0] * (Interpreter.CHIP8_WIDTH * Interpreter.CHIP8_HEIGHT)
-        self.screen = (Interpreter.SCREEN_WIDTH, Interpreter.SCREEN_HEIGHT)
+        self.screen = pygame.display.set_mode(
+            (Interpreter.SCREEN_WIDTH, Interpreter.SCREEN_HEIGHT),
+        )
+        self.clock = pygame.time.Clock()
+
+        pygame.display.set_caption("ChipPy-8 Interpreter")
 
     def _locate_rom(self) -> None:
         """

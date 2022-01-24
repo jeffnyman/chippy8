@@ -21,6 +21,7 @@ per-file-ignores =
 
     # '.format' used
     src/chippy8/errors.py:FS002
+    src/chippy8/interpreter.py:FS002
 
 ignore =
     # Missing type annotation for self in method
@@ -34,6 +35,12 @@ ignore =
 
     # Multi-line docstring summary should start at the first line.
     D212
+
+    # Whitespace before ':'
+    E203
+
+    # Format string does contain unindexed parameters.
+    P101
 
     # Line break before binary operator.
     W503

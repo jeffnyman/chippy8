@@ -13,13 +13,20 @@ from logzero import logger
 class Interpreter:
     """Abstraction for a CHIP-8 interpreter."""
 
+    MEMORY_START_ADDRESS = 0x200
+
     def __init__(self, rom: str) -> None:
         self._rom: str = rom
         self.file: str = ""
         self.data: bytes = b""
 
+        # CHIP-8 specification variables.
+
+        self.memory = [0x00] * 4096
+
         self._locate_rom()
         self._read_memory()
+        self._populate_memory()
 
     def _locate_rom(self) -> None:
         """
@@ -65,3 +72,13 @@ class Interpreter:
             raise UnableToAccessRomProgramError(
                 f"Unable to access the ROM program: {yellow_bold(self.file)}",
             ) from exc
+
+    def _populate_memory(self) -> None:
+        """Populate memory array with ROM binary data."""
+
+        operations = [int("{:02X}".format(b), 16) for b in self.data]
+
+        self.memory[
+            Interpreter.MEMORY_START_ADDRESS : Interpreter.MEMORY_START_ADDRESS
+            + len(operations)
+        ] = operations

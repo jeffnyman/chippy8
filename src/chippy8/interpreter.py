@@ -15,6 +15,11 @@ class Interpreter:
 
     MEMORY_START_ADDRESS = 0x200
     FONT_SET_START_ADDRESS = 0x50
+    CHIP8_WIDTH = 64
+    CHIP8_HEIGHT = 32
+    SCALE = 25
+    SCREEN_WIDTH = CHIP8_WIDTH * SCALE
+    SCREEN_HEIGHT = CHIP8_HEIGHT * SCALE
 
     def __init__(self, rom: str) -> None:
         self._rom: str = rom
@@ -29,6 +34,9 @@ class Interpreter:
         self._read_memory()
         self._populate_memory()
         self._populate_fonts()
+
+        self.display = [0] * (Interpreter.CHIP8_WIDTH * Interpreter.CHIP8_HEIGHT)
+        self.screen = (Interpreter.SCREEN_WIDTH, Interpreter.SCREEN_HEIGHT)
 
     def _locate_rom(self) -> None:
         """

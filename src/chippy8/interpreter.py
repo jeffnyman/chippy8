@@ -1,5 +1,6 @@
 """Module for CHIP-8 interpreter abstraction."""
 
+import contextlib
 import os
 from pathlib import Path
 
@@ -8,6 +9,11 @@ from chippy8.fonts import font_set
 from chippy8.messages import cyan_bold, yellow_bold
 
 from logzero import logger
+
+with contextlib.redirect_stdout(None):
+    import pygame
+
+pygame.init()
 
 
 class Interpreter:

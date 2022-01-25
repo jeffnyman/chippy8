@@ -2,6 +2,7 @@
 
 import contextlib
 import os
+import sys
 from pathlib import Path
 
 from chippy8.errors import UnableToAccessRomProgramError, UnableToLocateRomProgramError
@@ -48,6 +49,26 @@ class Interpreter:
         self.clock = pygame.time.Clock()
 
         pygame.display.set_caption("ChipPy-8 Interpreter")
+
+    def tick(self) -> None:
+        """
+        Sets up the frame-based execution of the interpreter.
+
+        This method will effectively be called once per frame and will
+        compute how many milliseconds have passed since the previous call
+        to the method.
+        """
+
+        self.clock.tick(600)
+
+        self._handle_input()
+
+    def _handle_input(self) -> None:
+        """Get user and system generated events for processing."""
+
+        if pygame.event.get(eventtype=pygame.QUIT):
+            pygame.quit()
+            sys.exit(0)
 
     def _locate_rom(self) -> None:
         """

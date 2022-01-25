@@ -16,7 +16,7 @@ def test_chippy8_startup_banner(capsys: pytest.CaptureFixture) -> None:
 
     file_path = os.path.join(os.path.dirname(__file__), "./fixtures", "BC_test.ch8")
 
-    with mock.patch.object(
+    with pytest.raises(SystemExit), mock.patch.object(
         sys,
         "argv",
         [""],

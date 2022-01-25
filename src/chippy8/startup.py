@@ -51,4 +51,7 @@ def setup_chippy8(cli: dict) -> None:
         cli: the parsed command line arguments
     """
 
-    Interpreter(cli["rom_file"])
+    interpreter = Interpreter(cli["rom_file"])
+
+    while True:
+        interpreter.tick()

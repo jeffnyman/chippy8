@@ -36,6 +36,11 @@ class Interpreter:
         # CHIP-8 specification variables.
 
         self.memory = [0x00] * 4096
+        self.stack = [Interpreter.MEMORY_START_ADDRESS] * 16
+        self.stack_pointer = 0
+
+        # Opcode variables.
+        self.opcode = 0
 
         self._locate_rom()
         self._read_memory()
@@ -50,6 +55,18 @@ class Interpreter:
 
         pygame.display.set_caption("ChipPy-8 Interpreter")
 
+    @property
+    def program_counter(self) -> int:
+        """Get location in stack for the program counter."""
+
+        return self.stack[self.stack_pointer]
+
+    @program_counter.setter
+    def program_counter(self, value: int) -> None:
+        """Set location in stack as the value of the program counter."""
+
+        self.stack[self.stack_pointer] = value
+
     def tick(self) -> None:
         """
         Sets up the frame-based execution of the interpreter.
@@ -62,6 +79,10 @@ class Interpreter:
         self.clock.tick(600)
 
         self._handle_input()
+
+        self.opcode = (self.memory[self.program_counter] << 8) | self.memory[
+            self.program_counter + 1
+        ]
 
     def _handle_input(self) -> None:
         """Get user and system generated events for processing."""

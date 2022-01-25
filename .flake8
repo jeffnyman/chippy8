@@ -21,7 +21,10 @@ per-file-ignores =
 
     # '.format' used
     src/chippy8/errors.py:FS002
-    src/chippy8/interpreter.py:FS002
+
+    # '.format' used
+    # Multi-line container not broken after opening character
+    src/chippy8/interpreter.py:FS002,JS101
 
 ignore =
     # Missing type annotation for self in method

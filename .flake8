@@ -42,6 +42,9 @@ ignore =
     # Whitespace before ':'
     E203
 
+    # Function names should be lowercase
+    N802
+
     # Format string does contain unindexed parameters.
     P101
 

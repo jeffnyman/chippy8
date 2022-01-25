@@ -42,6 +42,12 @@ class Interpreter:
         # Opcode variables.
         self.opcode = 0
 
+        self._op_map0 = {
+            0x0: self.OP_00E0,
+        }
+
+        self.opcode_map = {0x0: self.__op_map0}
+
         self._locate_rom()
         self._read_memory()
         self._populate_memory()
@@ -83,6 +89,30 @@ class Interpreter:
         self.opcode = (self.memory[self.program_counter] << 8) | self.memory[
             self.program_counter + 1
         ]
+
+        self._increment_program_counter()
+
+        # This line will call a relevant opcode map grouping method. So if the
+        # opcode is found to be 0x0, then that will be looking for a method
+        # called self.__op_map0(). Each method called is then responsible for
+        # referencing a property. So in the above case that would be self._op_map0.
+        # Each property will then be responsible for calling a specific method
+        # for handling the opcode. So if we end up with 0x0, that will map to a
+        # method called self.OP_00E0().
+        self.opcode_map[(self.opcode & 0xF000) >> 12]()
+
+    def __op_map0(self) -> None:
+        self._op_map0[self.opcode & 0x000F]()
+
+    def OP_00E0(self) -> None:
+        """CLS: Clear the display."""
+
+        self.display = [0] * (64 * 32)
+
+    def _increment_program_counter(self) -> None:
+        """Increment program counter by a word."""
+
+        self.program_counter += 2
 
     def _handle_input(self) -> None:
         """Get user and system generated events for processing."""
